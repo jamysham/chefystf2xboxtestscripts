@@ -1,0 +1,120 @@
+// d2_coast_01 wip script by Tails and PeppaMods
+
+sv_cheats 1
+
+say running d2_coast_01 script, the ones in the void, please wait.
+
+// First we will be removing stuff.
+ent_remove cranemagnet2
+ent_remove turret1_model
+ent_remove turret2_model
+ent_remove prop_ragdoll
+test_wait 1.
+say 5%/100%
+
+
+noclip;
+setpos -13986.79 -9254.54 2243.51
+setang 89.00 91.10
+
+// Red Spawns
+
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 1";test_wait .05;ent_keyvalue 1 classname redspawn origin"-7754.54 -8534.83 963.97"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 2";test_wait .05;ent_keyvalue 2 classname redspawn origin"-7960.85 -8535.71 963.97"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 3";test_wait .05;ent_keyvalue 3 classname redspawn origin"-7959.94 -8635.71 960.97"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 4";test_wait .05;ent_keyvalue 4 classname redspawn origin"-7956.49 -8767.03 960.97"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 5";test_wait .05;ent_keyvalue 5 classname redspawn origin"-7969.61 -8767.03 960.97"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 6";test_wait .05;ent_keyvalue 6 classname redspawn origin"-7802.15 -10033.49 960.97"
+
+// BLU Spawns
+
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 7";test_wait .05;ent_keyvalue 7 classname bluspawn origin"12158.90 1117.39 1585.40"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 8";test_wait .05;ent_keyvalue 8 classname bluspawn origin"-11918.71 1076.75 1587.78"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 9";test_wait .05;ent_keyvalue 9 classname bluspawn origin"-12367.98 849.37 1572.00"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 10";test_wait .05;ent_keyvalue 10 classname bluspawn origin"-12277.46 425.14 1557.62"
+give info_player_teamspawn;ent_fire info_player_teamspawn addoutput"hammerid 11";test_wait .05;ent_keyvalue 11 classname bluspawn origin"-12680 28.18 1536.25"
+test_wait 1.
+say almost there. 65%/100%
+test_wait 2.
+
+ent_fire redspawn* setteam 2;ent_fire bluspawn* setteam 3;
+ent_fire redspawn* addoutput "classname info_player_teamspawn";ent_fire bluspawn* addoutput "classname info_player_teamspawn"
+
+ent_create item_ammopack_full;test_wait .05;
+ent_fire item_ammopack_full addoutput "hammerid 796";test_wait .05;
+ent_keyvalue 796 "classname" "item_76" "origin" "-9136.80 -3543.35 596.21" "OnPlayerTouch" "item_76,addoutput,origin -9136.80 -3543.35 596.21,30";
+ent_create item_healthkit_small;test_wait .05;
+ent_fire item_healthkit_small addoutput "hammerid 799";test_wait .05;
+ent_keyvalue 799 "classname" "item_79" "origin" "-7120.64 -6366.50 513.34" "OnPlayerTouch" "item_79,addoutput,origin -7120.64 -6366.50 513.34,30";
+
+test_wait 1.
+give tf_gamerules
+ent_fire tf_gamerules setblueteamrespawnwavetime 6;
+ent_fire tf_gamerules setredteamrespawnwavetime 9;
+ent_fire tf_gamerules setblueteamgoalstring"This is a placeholder message."
+ent_fire tf_gamerules setredteamgoalstring"This is a placeholder message."
+test_wait 1.;
+give game_text_tf;
+ent_fire game_text_tf addoutput"classname credits;
+ent_fire credits addoutput"icon voice_player;
+ent_fire credits addoutput"message d2_coast_01 Created by Tails, PeppaMods and J0w03L / RelahThaArcy9;
+
+
+// Increase fog to counteract huge sniper sightlines.
+ent_fire fog setenddist 4500;
+ent_fire fog setfarz 6200;
+test_wait .05;  
+test_wait 1.
+say 75%/100%
+test_wait 1.
+
+
+tf_max_voice_speak_delay -1
+spec_freeze_time 1.2
+spec_freeze_traveltime 2.2
+test_wait 1.
+
+
+say 80%/100%
+test_wait 1.
+
+
+ent_remove_all game_text
+ent_remove_all logic_timer
+
+
+give game_text
+test_wait .2
+ent_fire game_text addoutput "targetname discord_ad_text"
+test_wait .1
+ent_fire discord_ad_text addoutput "channel 6"
+ent_fire discord_ad_text addoutput "color 255 0 255"
+ent_fire discord_ad_text addoutput "color2 255 0 255"
+ent_fire discord_ad_text addoutput "effect 2"
+ent_fire discord_ad_text addoutput "fadein 0.02"
+ent_fire discord_ad_text addoutput "fadeout 999999"
+ent_fire discord_ad_text addoutput "holdtime 2.5"
+ent_fire discord_ad_text addoutput "spawnflags 1"
+ent_fire discord_ad_text addoutput "message discord.gg/H6bGr7Pd, Script by Tails, PeppaMods and J0w03L / RelahThaArcy9"
+
+
+give logic_timer
+test_wait .2
+ent_fire logic_timer addoutput "targetname discord_ad_timer"
+ent_fire discord_ad_timer addoutput "RefireTime 10"
+ent_fire discord_ad_timer addoutput "OnTimer discord_ad_text,Display,,0,-1"
+test_wait .1
+
+ent_fire discord_ad_timer enable
+
+
+say DONE!
+test_wait 1.
+mp_restartround 1;
+test_wait 5.
+ent_fire credits display
+///
+
+
+
+

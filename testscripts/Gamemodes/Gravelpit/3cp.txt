@@ -1,0 +1,112 @@
+sv_cheats 1
+noclip;
+setpos -5267.78 -832.06 271.17;setang 89.00 -87.62;
+
+ent_fire blue_spawn_door* kill
+
+ent_fire red_team_filter kill
+
+ent_create game_text_tf;
+ent_fire game_text_tf addoutput "targetname ms1";
+ent_fire ms1 addoutput "hammerid 113"
+ent_keyvalue 113 classname"player" message"3CP Gravelpit created by Chefy" icon"voice_player" display_to_team"0" background"2"
+ent_create game_text_tf;ent_fire game_text_tf addoutput"hammerid 111";test_wait .05;ent_keyvalue 111 targetname"ms2" message"Capture all Control Points to win the Game!" icon"voice_self" display_to_team"0" background"2";
+ent_fire trigger_capture_area disable // prevent players from capturing any control points
+ent_fire team_round_timer pause
+give team_control_point_master
+give team_round_timer
+ent_fire game_round_win kill // allowing sudden death
+mp_stalemate_timelimit 600
+say 20/100
+test_wait 2.
+
+
+
+
+
+
+
+
+// Sets stuff
+ent_fire tf_gamerules setblueteamrespawnwavetime 5;
+ent_fire tf_gamerules setredteamrespawnwavetime 9; // Shorter Respawn wavetime
+ent_fire tf_gamerules setblueteamgoalstring"Capture All Control Points, Don't let the enemy do the same!
+ent_fire tf_gamerules setredteamgoalstring"Capture All Control Points, Don't let the enemy do the same!
+test_wait 2.
+ent_fire team_control_point_master addoutput "cpm_restrict_team_cap_win 0"
+ent_fire cap_a_flag setOwner 3
+ent_fire cap_b_flag SetOwner 2
+ent_fire final_cap_flag SetOwner 0
+test_wait 2.
+ent_fire trigger_capture_area SetTeamCanCap "2 1"
+ent_fire trigger_capture_area SetTeamCanCap "3 1"
+ent_fire team_round_timer SetMaxTime 1800
+ent_fire team_round_timer SetTime 125
+ent_fire team_round_timer addoutput"setup_length 45"
+ent_fire trigger_capture_area addoutput "OnCapTeam2, Skin,2,0,-1"
+ent_fire trigger_capture_area addoutput "OnCapTeam1, Skin,1,0,-1"
+ent_fire trigger_capture_area addoutput "area_time_to_cap 9"
+ent_fire final_cap_trigger addoutput "area_time_to_cap 10"
+ent_fire trigger_capture_area addoutput "OnCapTeam1 team_round_timer,AddTeamTime,2 120,0,-1"
+ent_fire trigger_capture_area addoutput "OnCapTeam2 team_round_timer,AddTeamTime,3 120,0,-1"
+
+// make capture areas change skin!!!
+ent_fire cap_a addoutput "OnCapTeam1 cap_base_model_a,SeSkin,1,0,-1"
+ent_fire cap_a addoutput "OnCapTeam2 cap_base_model_a,Skin,2,0,-1"
+ent_fire cap_b addoutput "OnCapTeam1 cap_base_model_a,Skin,1,0,-1"
+ent_fire cap_b addoutput "OnCapTeam2 cap_base_model_a,Skin,2,0,-1"
+ent_fire cap_c addoutput "OnCapTeam1 cap_base_model_a,Skin,1,0,-1"
+ent_fire cap_c addoutput "OnCapTeam2 cap_base_model_a,Skin,2,0,-1"
+say 40/100
+
+// sets the final cap to not require A and B
+
+ent_fire final_cap_flag addoutput"team_previouspoint_2_0 final_cap_flag"
+ent_fire final_cap_flag addoutput"team_previouspoint_2_1 final_cap_flag"
+ent_fire final_cap_flag addoutput"team_previouspoint_3_0 final_cap_flag" 
+ent_fire final_cap_flag addoutput"team_previouspoint_3_1 " // unlocking the centeral point
+ent_fire cap_a_flag addoutput"team_previouspoint_3_0 final_cap_flag"
+ent_fire cap_a_flag addoutput"team_previouspoint_2_0 final_cap_flag"
+ent_fire cap_b_flag addoutput"team_previouspoint_3_0 final_cap_flag"
+ent_fire cap_b_flag addoutput"team_previouspoint_2_0 final_cap_flag"
+
+// Change Control Point Base skins.
+
+ent_fire cap_base_model_a skin 2
+ent_fire cap_base_model_c skin 3
+
+
+
+
+
+test_wait 3.
+ent_fire team_control_point_master AddOutPut"SetCapLayout 0 2 1
+
+// getting game_round_win to work with the timer
+give game_round_win
+ent_fire game_round_win addoutput "targetname stle"
+ent_fire team_round_timer addoutput "OnFinished stle,RoundWin,,1,1"
+ent_fire team_control_point_master SetCapLayout "0 2 1"
+test_wait .5
+say 90/100
+test_wait 2.
+
+
+
+say DONE!
+mp_restartround 1
+test_wait 4.
+ent_fire trigger_capture_area enable
+ent_fire ms1
+test_wait 9.5
+ent_fire ms2 display
+
+// TODO:
+
+// Make new spawns for red and blue
+// Fix if the team wins 3 times when final cap is captured.. which is kinda loud.
+
+
+
+///
+

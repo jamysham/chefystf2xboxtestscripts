@@ -1,0 +1,71 @@
+// Script made by Tails, i improved the A/D testscript because why not, and for fun also.
+ent_create point_servercommand
+ent_fire point_servercommand command "tf_flag_caps_per_round 4"
+
+say Red - Defend Intel Blu - Attack Intel
+
+noclip
+setpos -2360 -3358 1614
+setang 90 90
+
+give tf_gamerules
+
+
+ent_fire bluestairs* kill;ent_fire blueramp* kill
+alias supw "prop_dynamic_create props_mining/support_wall001a;test_wait .06"
+
+
+supw;test_wait .04;
+ent_setname blueramp1;test_wait .04;
+ent_fire blueramp1 addoutput "origin -290 -1667 255";ent_fire blueramp1 addoutput "angles 0 270";test_wait .04;
+supw;test_wait .04;
+ent_setname blueramp2;test_wait .04;
+ent_fire blueramp2 addoutput "origin -400 -1740 260";ent_fire blueramp2 addoutput "angles 90";test_wait .04;
+
+ent_create team_round_timer
+ent_fire team_round_timer addoutput "targetname roundtimer"
+ent_fire roundtimer settime 800
+ent_fire roundtimer addoutput "show_in_hud 1"
+ent_fire roundtimer addoutput "setup_length 69"
+ent_fire roundtimer addoutput "OnSetupStart roundtimer,settime,90,0,-1"
+ent_fire roundtimer addoutput "OnSetupEnd roundtimer,settime,800,0,-1"
+ent_fire roundtimer addoutput "classname worldspawn"
+ent_fire roundtimer enable
+ent_fire roundtimer resume
+
+
+
+ent_fire roundtimer addoutput "OnFinished winred,RoundWin,,1,1"
+give game_round_win
+ent_fire game_round_win addoutput "classname winred";ent_fire winred setteam 2
+test_wait .05
+give game_round_win
+ent_fire game_round_win addoutput "classname winblu";ent_fire winblu setteam 3
+test_wait .05
+ent_fire win* addoutput "force_map_reset 0"
+ent_fire winblu addoutput "classname player"
+ent_fire winred addoutput "classname player"
+
+
+ENT_REMOVE_ALL FLAG_BLUE
+ent_fire flag_blue deactivate
+
+ent_fire func_capturezone addoutput "OnCapture roundtimer,addteamtime,3 270,0,-1 
+
+
+ent_fire tf_gamerules setblueteamgoalstring "Capture RED's intel 4 times to win the game!"
+ent_fire tf_gamerules setredteamgoalstring "Defend the Intels until the timer runs out!"
+
+test_wait 0.5
+mp_restartround 1
+test_wait 1.
+
+ent_create game_text_tf
+ent_fire game_text_tf addoutput "targetname credits"
+ent_fire credits addoutput "classname credits"
+ent_fire credits addoutput "icon voice_player"
+ent_fire credits addoutput "background 2"
+ent_fire credits addoutput "message Attack/Defend 2Fort created by Chefy"
+test_wait .5
+ent_fire credits display
+///

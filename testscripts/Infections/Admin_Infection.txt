@@ -1,0 +1,17 @@
+// No sv_cheats trigger here! no players being cheaters :D
+
+ent_fire prop_dynamic addoutput"classname prop_old";ent_fire point_clientcommand addoutput"classname pcc_old;ent_fire logic_relay addoutput"classname lr_old;
+test_wait .04;
+prop_dynamic_create props_2fort/frog;
+give point_clientcommand;give logic_relay;
+test_wait .04;
+ent_fire prop_dynamic addoutput "targetname frog";
+ent_fire point_clientcommand addoutput "targetname pcc";
+ent_fire logic_relay addoutput "targetname lr";
+ent_fire logic_relay addoutput "hammerid 200";
+test_wait .04;
+ent_fire frog addoutput "onhealthchanged pcc,command,ent_fire lr trigger";
+ent_keyvalue 200 spawnflags 0 ontrigger"pcc,command,say ADMIN MODE! Press BACK to noclip"ontrigger"
+ent_keyvalue 200 spawnflags 0 ontrigger"pcc,command,alias bano noclip"ent_keyvalue 200 spawnflags 0 ontrigger"pcc,command,bind BACK bano"
+ent_fire prop_old addoutput"classname prop_dynamic";ent_fire pcc_old addoutput"classname point_clientcommand;ent_fire lr_old addoutput"classname logic_relay;
+///
